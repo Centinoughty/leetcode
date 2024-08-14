@@ -54,5 +54,5 @@ This repository is licensed under the MIT [LICENSE](License). See the LICENSE fo
 
 If you have any questions or comments, please feel free to contact me:
 
--Email: [nadeemvadasseril@gmail.com](mailto:nadeemvadasseril@gmail.com)
--LinkedIn: [nadeem-m-siyam/](https://www.linkedin.com/in/nadeem-m-siyam/)
+- Email: [nadeemvadasseril@gmail.com](mailto:nadeemvadasseril@gmail.com)
+- LinkedIn: [nadeem-m-siyam/](https://www.linkedin.com/in/nadeem-m-siyam/)
