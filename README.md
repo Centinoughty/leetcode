@@ -48,7 +48,7 @@ If you'd like to contribute to this repository by adding new solutions or improv
 
 ## License
 
-This repository is licensed under the MIT [LICENSE](License). See the LICENSE for more detials
+This repository is licensed under the MIT [LICENSE](LICENSE). See the LICENSE for more detials
 
 ## Contact
 
