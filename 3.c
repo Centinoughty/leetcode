@@ -1,4 +1,5 @@
 // Longest substring without repeating charecters
+// MEDIUM
 
 #include <stdio.h>
 

@@ -1,4 +1,5 @@
 // Two Sum
+// EASY
 
 #include <stdio.h>
 #include <stdlib.h>

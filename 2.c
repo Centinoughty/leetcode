@@ -1,4 +1,5 @@
 // Add two numbers
+// MEDIUM
 
 #include <stdio.h>
 #include <stdlib.h>
