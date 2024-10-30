@@ -18,18 +18,3 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     
     return arr;
 }
-
-
-int main () {
-    int n;
-    scanf("%d", &n);
-    int A[n];
-    int* arr;
-
-    for (int i = 0; i < n; i ++) {
-        scanf("%d", &A[i]);
-    }
-
-    arr = twoSum(A, n, 6, A);
-    printf("%d %d", arr[0], arr[1]);
-}
