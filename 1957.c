@@ -1,3 +1,6 @@
+// Delete charecters to make fancy string
+// EASY
+
 char* makeFancyString(char* s) {
   int n = strlen(s);
   char* t = (char*)malloc((n + 1) * sizeof(char));
