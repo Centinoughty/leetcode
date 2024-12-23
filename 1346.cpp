@@ -1,3 +1,6 @@
+// Check if N and its double exist
+// EASY
+
 #include <vector>
 #include <unordered_set>
 
