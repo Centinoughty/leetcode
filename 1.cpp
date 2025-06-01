@@ -21,3 +21,22 @@ public:
     return res;
   }
 };
+
+// Using hash
+class Solution {
+public:
+  vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> hash;
+    for (int i = 0; i < nums.size(); i ++) {
+      int num = nums[i];
+      int needed = target - num;
+      if (hash.find(needed) != hash.end()) {
+        return {i, hash[needed]};
+      }
+
+      hash[num] = i;
+    }
+
+    return {-1, -1};
+  }
+};
