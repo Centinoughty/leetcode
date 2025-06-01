@@ -8,12 +8,11 @@ class Solution {
 public:
   int longestConsecutive(vector<int>& nums) {
     int maxLength = 0;
-    unordered_set<int> seen{nums.begin(), nums.end()};
-
-    for (int x : nums) {
-      if (!seen.count(x - 1)) {
+    unordered_set<int> mpp(nums.begin(), nums.end());
+    for (const int num : nums) {
+      if (!mpp.count(num - 1)) {
         int length = 1;
-        while (seen.erase(x + length)) {
+        while (mpp.erase(num + length)) {
           length ++;
         }
 
@@ -24,7 +23,6 @@ public:
     return maxLength;
   }
 };
-
 
 // Using sort
 class Solution {
