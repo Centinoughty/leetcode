@@ -18,3 +18,16 @@ public:
         return nums[nums.size() - 1];
     }
 };
+
+// XOR Approack
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int res = 0;
+        for (const int num : nums) {
+            res ^= num;
+        }
+
+        return res;
+    }
+};
