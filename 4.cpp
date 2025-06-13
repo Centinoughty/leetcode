@@ -33,3 +33,63 @@ public:
         }
     }
 };
+
+// No extra space
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int el1 = -1, el2 = -1;
+        int n1 = nums1.size(), n2 = nums2.size();
+        int n = n1 + n2;
+        int pos1 = n % 2 ? n / 2 : n / 2 - 1;
+        int pos2 = n / 2;
+        int i = 0, j = 0, k = 0;
+        while (i < n1 && j < n2) {
+            int temp;
+            if (nums1[i] < nums2[j]) {
+                temp = nums1[i ++];
+            } else {
+                temp = nums2[j ++];
+            }
+
+            if (k == pos1 && el1 == -1 && el2 == -1) {
+                el1 = temp;
+            }
+
+            if (k == pos2 && el1 != -1 && el2 == -1) {
+                el2 = temp;
+                break;
+            }
+
+            k ++;
+        }
+
+        while (i < n1 && el2 == -1) {
+            int temp = nums1[i ++];
+            if (k == pos1 && el1 == -1 && el2 == -1) {
+                el1 = temp;
+            }
+
+            if (k == pos2 && el1 != -1 && el2 == -1) {
+                el2 = temp;
+            }
+
+            k ++;
+        }
+
+        while (j < n2 && el2 == -1) {
+            int temp = nums2[j ++];
+            if (k == pos1 && el1 == -1 && el2 == -1) {
+                el1 = temp;
+            }
+
+            if (k == pos2 && el1 != -1 && el2 == -1) {
+                el2 = temp;
+            }
+
+            k ++;
+        }
+
+        return ((double)el1 + (double)el2) / 2.0;
+    }
+};
