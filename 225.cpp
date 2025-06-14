@@ -6,9 +6,7 @@ using namespace std;
 
 class MyStack {
 public:
-    MyStack() {
-        
-    }
+    MyStack() {}
     
     void push(int x) {
         Q.push(x);
