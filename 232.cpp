@@ -6,9 +6,7 @@ using namespace std;
 
 class MyQueue {
 public:
-    MyQueue() {
-        
-    }
+    MyQueue() {}
     
     void push(int x) {
         stack<int> temp;
