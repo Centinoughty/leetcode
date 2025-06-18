@@ -70,3 +70,28 @@ class Solution {
         return top;
     }
 };
+
+// 2 pointer approach
+class Solution {
+  public:
+    int celebrity(vector<vector<int> >& mat) {
+        int i = 0, j = mat.size() - 1;
+        while (i < j) {
+            if (mat[i][j]) {
+                i ++;
+            } else {
+                j --;
+            }
+        }
+        
+        for (int k = 0; k < mat.size(); k ++) {
+            if (k == i) continue;
+
+            if (!mat[k][i] || mat[i][k]) {
+                return -1;
+            }
+        }
+        
+        return i;
+    }
+};
