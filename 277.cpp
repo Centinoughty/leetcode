@@ -33,3 +33,40 @@ class Solution {
         return -1;
     }
 };
+
+// Using a stack
+class Solution {
+  public:
+    int celebrity(vector<vector<int> >& mat) {
+        stack<int> st;
+        int n = mat.size();
+        for (int i = 0; i < mat.size(); i ++) {
+            st.push(i);
+        }
+        
+        while (st.size() > 1) {
+            int a = st.top();
+            st.pop();
+            int b = st.top();
+            st.pop();
+            
+            if (mat[a][b]) {
+                st.push(b);
+            } else {
+                st.push(a);
+            }
+        }
+        
+        int top = st.top();
+        st.pop();
+        for (int i = 0; i < mat.size(); i ++) {
+            if (i == top) continue;
+            
+            if (mat[top][i] || !mat[i][top]) {
+                return -1;
+            }
+        }
+        
+        return top;
+    }
+};
