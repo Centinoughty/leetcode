@@ -49,3 +49,39 @@ public:
 		return res;
 	}
 };
+
+// Same method but reorganized
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        levelOrder(root);
+        return res;
+    }
+
+private:
+    vector<int> res;
+
+    void levelOrder(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty()) {
+            int size = q.size();
+            TreeNode* rightMost = nullptr;
+            for (int i = 0; i < size; i ++) {
+                TreeNode* top = q.front();
+                q.pop();
+                if (top) {
+                    rightMost = top;
+                    q.push(top->left);
+                    q.push(top->right);
+                }
+            }
+
+            if (rightMost) {
+                res.push_back(rightMost->val);
+            }
+        }
+    }
+};
