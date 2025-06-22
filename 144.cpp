@@ -31,7 +31,7 @@ private:
     }
 };
 
-// Morris preorder traversal
+// Iterative approach
 
 class Solution {
 public:
