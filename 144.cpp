@@ -30,3 +30,27 @@ private:
         }
     }
 };
+
+// Morris preorder traversal
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> st;
+        TreeNode *curr = root;
+        if (root) {
+            st.push(root);
+        }
+
+        while (!st.empty()) {
+            TreeNode *top = st.top();
+            st.pop();
+            res.push_back(top->val);
+            if (top->right) st.push(top->right);
+            if (top->left) st.push(top->left);
+        }
+
+        return res;
+    }
+};
