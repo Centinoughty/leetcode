@@ -39,23 +39,23 @@ public:
         vector<int> res;
         TreeNode *curr = root;
         while (curr) {
-            if (!(curr->left)) {
-                res.push_back(curr->val);
-                curr = curr->right;
-            } else {
+            if (curr->left) {
                 TreeNode *prev = curr->left;
                 while (prev->right && prev->right != curr) {
                     prev = prev->right;
                 }
 
-                if (!(prev->right)) {
-                    prev->right = curr;
-                    curr = curr->left;
-                } else {
+                if (prev->right) {
                     prev->right = NULL;
                     res.push_back(curr->val);
                     curr = curr->right;
+                } else {
+                    prev->right = curr;
+                    curr = curr->left;
                 }
+            } else {
+                res.push_back(curr->val);
+                curr = curr->right;
             }
         }
 
