@@ -65,3 +65,42 @@ public:
     }
   }
 };
+
+// Using deque without reversing the array
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        bool flag = true;
+        deque<TreeNode*> dq;
+        if (root) {
+            dq.push_back(root);
+        }
+
+        while (!dq.empty()) {
+            int size = dq.size();
+            vector<int> temp;
+            for (int i = 0; i < size; i ++) {
+                TreeNode* top;
+                if (flag) {
+                    top = dq.front();
+                    dq.pop_front();
+                    temp.push_back(top->val);
+                    if (top->left) dq.push_back(top->left);
+                    if (top->right) dq.push_back(top->right);
+                } else {
+                    top = dq.back();
+                    dq.pop_back();
+                    temp.push_back(top->val);
+                    if (top->right) dq.push_front(top->right);
+                    if (top->left) dq.push_front(top->left);
+                }
+            }
+
+            res.push_back(temp);
+            flag = !flag;
+        }
+
+        return res;
+    }
+};
