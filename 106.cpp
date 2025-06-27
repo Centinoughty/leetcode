@@ -41,3 +41,34 @@ private:
         return -1;
     }
 };
+
+// WIthout trimming down given array
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return build(inorder, postorder, 0, 0, inorder.size() - 1, postorder.size() - 1);
+    }
+
+private:
+    TreeNode* build(vector<int> inorder, vector<int> postorder, int sI, int sP, int eI, int eP) {
+        if (sI > eI || sP > eP) return NULL;
+
+        TreeNode* temp = new TreeNode(postorder[eP]);
+        int pos = findIdx(temp->val, sI, eI, inorder);
+
+        temp->left = build(inorder, postorder, sI, sP, pos - 1, sP + pos - sI - 1);
+        temp->right = build(inorder, postorder, pos + 1, sP + pos - sI, eI, eP - 1);
+
+        return temp;
+    }
+
+    int findIdx(int val, int sI, int eI, vector<int> inorder) {
+        for (int i = sI; i <= eI; i ++) {
+            if (inorder[i] == val) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+};
