@@ -7,8 +7,8 @@ using namespace std;
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        int res = -1;
         buildHeap(nums);
+        int res = -1;
         for (int i = 0; i < k; i ++) {
             res = extractMax(nums);
         }
@@ -19,15 +19,15 @@ public:
 private:
     void heapify(vector<int>& nums, int i) {
         int largest = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        int l = 2 * i;
+        int r = 2 * i + 1;
 
-        if (left < nums.size() && nums[left] > nums[largest]) {
-            largest = left;
+        if (l < nums.size() && nums[l] > nums[largest]) {
+            largest = l;
         }
 
-        if (right < nums.size() && nums[right] > nums[largest]) {
-            largest = right;
+        if (r < nums.size() && nums[r] > nums[largest]) {
+            largest = r;
         }
 
         if (largest != i) {
@@ -43,10 +43,10 @@ private:
     }
 
     int extractMax(vector<int>& nums) {
-        int temp = nums[0];
+        int res = nums[0];
         swap(nums[0], nums[nums.size() - 1]);
         nums.pop_back();
         heapify(nums, 0);
-        return temp;
+        return res;
     }
 };
