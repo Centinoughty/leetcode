@@ -22,10 +22,10 @@ public:
         flatten(root->left);
 
         root->right = prev;
-        root->left = NULL;
+        root->left = nullptr;
         prev = root;
     }
 
 private:
-    TreeNode* prev = NULL;
+    TreeNode* prev = nullptr;
 };
