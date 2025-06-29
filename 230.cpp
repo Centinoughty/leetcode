@@ -1,8 +1,7 @@
 // kth smallest element in BST
 // MEDIUM
 
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 struct TreeNode {
@@ -34,4 +33,24 @@ public:
       inorder(root->right, val, k);
     }
   }
+};
+
+// Using extra space
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        inorder(root);
+        return inorderArr[k - 1];
+    }
+
+private:
+    vector<int> inorderArr;
+
+    void inorder(TreeNode* root) {
+        if (root) {
+            inorder(root->left);
+            inorderArr.push_back(root->val);
+            inorder(root->right);
+        }
+    }
 };
