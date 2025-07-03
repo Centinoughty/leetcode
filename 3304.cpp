@@ -20,3 +20,25 @@ public:
         return res[k - 1];
     }
 };
+
+// By counting number of 1 bits
+class Solution {
+public:
+    char kthCharacter(int k) {
+        return 'a' + countBits(k - 1);
+    }
+
+private:
+    int countBits(int k) {
+        int res = 0;
+        while (k) {
+            if (k % 2) {
+                res ++;
+            }
+
+            k /= 2;
+        }
+
+        return res;
+    }
+};
