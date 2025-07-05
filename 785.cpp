@@ -37,3 +37,43 @@ private:
         return true;
     }
 };
+
+// Using BFS
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        visited = vector<int>(graph.size(), 0);
+        for (int i = 0; i < graph.size(); i ++) {
+            if (!visited[i]) {
+                if (!bfs(graph, i, 1)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+private:
+    vector<int> visited;
+
+    bool bfs(vector<vector<int>>& graph, int pos, int c) {
+        visited[pos] = c;
+        queue<pair<int, int>> q;
+        q.push({pos, c});
+        while (!q.empty()) {
+            const auto [node, color] = q.front();
+            q.pop();
+            for (const int ngb : graph[node]) {
+                if (!visited[ngb]) {
+                    q.push({ngb, -color});
+                    visited[ngb] = -color;
+                } else if (color == visited[ngb]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+};
