@@ -50,3 +50,43 @@ private:
         return res;
     }
 };
+
+// Approach: Quick Select
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        return quickSelect(nums, nums.size() - k, 0, nums.size() - 1);
+    }
+
+private:
+    int quickSelect(vector<int>& nums, int k, int i, int j) {
+        if (i == j) return nums[i];
+
+        int p = partition(nums, i, j);
+        if (p == k) {
+            return nums[p];
+        } else if (p < k) {
+            return quickSelect(nums, k, p + 1, j);
+        } else {
+            return quickSelect(nums, k, i, p - 1);
+        }
+    }
+
+    int partition(vector<int>& nums, int i, int j) {
+        int pivot = nums[i];
+        int l = i + 1, r = j;
+        while (l <= r) {
+            while (l <= j && nums[l] <= pivot) l ++;
+            while (r >= i && nums[r] > pivot) r --;
+
+            if (l < r) {
+                swap(nums[l], nums[r]);
+            } else {
+                break;
+            }
+        }
+
+        swap(nums[i], nums[r]);
+        return r;
+    }
+};
