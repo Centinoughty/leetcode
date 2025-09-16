@@ -39,3 +39,7 @@ private:
         return a;
     }
 };
+
+// Initially, I used two pointer approach to insert element, if and only if gcd is 1
+// However, this method wont work at all times
+// Check out my method from the submission history
