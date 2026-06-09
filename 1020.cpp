@@ -54,3 +54,43 @@ private:
         }
     }
 };
+
+// Easier to understand method
+class Solution {
+public:
+    int numEnclaves(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0; j < n; j ++) {
+                if (i == 0 || j == 0 || i == m - 1 || j == n - 1) {
+                    dfs(grid, i, j);
+                }
+            }
+        }
+
+        int count = 0;
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0; j < n; j ++) {
+                if (grid[i][j] == 1) {
+                    count ++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+private:
+    void dfs(vector<vector<int>>& grid, int x, int y) {
+        int m = grid.size(), n = grid[0].size();
+        if (x < 0 || y < 0 || x == m || y == n) return;
+
+        if (grid[x][y] != 1) return;
+        grid[x][y] = 0;
+
+        dfs(grid, x - 1, y);
+        dfs(grid, x, y - 1);
+        dfs(grid, x + 1, y);
+        dfs(grid, x, y + 1);
+    }
+};
