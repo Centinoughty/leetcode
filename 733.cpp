@@ -31,3 +31,46 @@ public:
 private:
     int key;
 };
+
+// BFS
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int m = image.size(), n = image[0].size();
+        
+        int currColor = image[sr][sc];
+        if (currColor == color) {
+            return image;
+        }
+        
+        queue<pair<int, int>> q;
+        q.push({sr, sc});
+        image[sr][sc] = color;
+
+        while (!q.empty()) {
+            auto [x, y] = q.front(); q.pop();
+
+            if (x > 0 && image[x - 1][y] == currColor) {
+                image[x - 1][y] = color;
+                q.push({x - 1, y});
+            }
+
+            if (y > 0 && image[x][y - 1] == currColor) {
+                image[x][y - 1] = color;
+                q.push({x, y - 1});
+            }
+
+            if (x < m - 1 && image[x + 1][y] == currColor) {
+                image[x + 1][y] = color;
+                q.push({x + 1, y});
+            }
+
+            if (y < n - 1 && image[x][y + 1] == currColor) {
+                image[x][y + 1] = color;
+                q.push({x, y + 1});
+            }
+        }
+
+        return image;
+    }
+};
