@@ -82,3 +82,44 @@ public:
         return components - 1 <= extras ? components - 1 : -1;
     }
 };
+
+// BFS
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        if (connections.size() < n - 1) return -1;
+
+        vector<vector<int>> adj(n);
+        for (const vector<int> connection : connections) {
+            int u = connection[0], v = connection[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        int components = 0;
+        vector<int> visited(n, false);
+
+        for (int i = 0; i < n; i ++) {
+            if (!visited[i]) {
+                components ++;
+                queue<int> q;
+
+                q.push(i);
+                visited[i] = true;
+
+                while (!q.empty()) {
+                    int top = q.front(); q.pop();
+
+                    for (const int ngb : adj[top]) {
+                        if (!visited[ngb]) {
+                            visited[ngb] = true;
+                            q.push(ngb);
+                        }
+                    }
+                }
+            }
+        }
+
+        return components - 1;
+    }
+};
