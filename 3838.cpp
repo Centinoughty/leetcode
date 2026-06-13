@@ -7,15 +7,14 @@ using namespace std;
 class Solution {
 public:
     string mapWordWeights(vector<string>& words, vector<int>& weights) {
-        string res = "";
-        for (const string& s : words) {
-            int sum = 0;
-            for (const char c : s) {
-                sum += weights[c - 'a'];
+        string res;
+        for (const string& word : words) {
+            int weight = 0;
+            for (const char& c : word) {
+                weight += weights[c - 'a'];
             }
 
-            sum %= 26;
-            res += ('a' + 25 - sum);
+            res.push_back('z' - (weight % 26));
         }
 
         return res;
