@@ -36,3 +36,49 @@ private:
         return parent[node] = findPar(parent, parent[node]);
     }
 };
+
+// Using MST
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        vector<vector<int>> adj(n);
+        for (const vector<int>& connection : connections) {
+            int u = connection[0], v = connection[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        vector<int> visited(n, false);
+        priority_queue<int, vector<int>, greater<int>> pq;
+
+        int extras = 0, components = 0;
+
+        for (int i = 0; i < n; i ++) {
+            if (!visited[i]) {
+                components ++;
+                int pathCost = 0, edges = 0;
+
+                pq.push(i);
+                while (!pq.empty()) {
+                    int node = pq.top(); pq.pop();
+                    if (visited[node]) continue;
+                    visited[node] = true;
+
+                    pathCost ++;
+
+                    for (const int& ngb : adj[node]) {
+                        edges ++;
+                        if (!visited[ngb]) {
+                            pq.push(ngb);
+                        }
+                    }
+                }
+
+                edges /= 2;
+                extras += edges - (pathCost - 1);
+            }
+        }
+
+        return components - 1 <= extras ? components - 1 : -1;
+    }
+};
