@@ -90,3 +90,61 @@ private:
                dfs(grid, id, i - 1, j) + dfs(grid, id, i + 1, j);
     }
 };
+
+// Simple DFS
+class Solution {
+public:
+    int largestIsland(vector<vector<int>>& grid) {
+        int n = grid.size();
+
+        size.resize(((n * n) / 2) + 1, 0);
+        int marker = 2;
+
+        for (int i = 0; i < n; i ++) {
+            for (int j = 0; j < n; j ++) {
+                if (grid[i][j] == 1) {
+                    dfs(grid, i, j, marker ++);
+                }
+            }
+        }
+
+        int maxSize = max(1, *max_element(size.begin(), size.end()));
+        for (int i = 0; i < n; i ++) {
+            for (int j = 0; j < n; j ++) {
+                if (grid[i][j] == 0) {
+                    unordered_set<int> st;
+                    if (i > 0 && grid[i - 1][j] != 0) st.insert(grid[i - 1][j]);
+                    if (j > 0 && grid[i][j - 1] != 0) st.insert(grid[i][j - 1]);
+                    if (i < n - 1 && grid[i + 1][j] != 0) st.insert(grid[i + 1][j]);
+                    if (j < n - 1 && grid[i][j + 1] != 0) st.insert(grid[i][j + 1]);
+
+                    int currSize = 1;
+                    for (const int& x : st) {
+                        currSize += size[x - 2];
+                    }
+
+                    maxSize = max(maxSize, currSize);
+                }
+            }
+        }
+
+        return maxSize;
+    }
+
+private:
+    vector<int> size;
+
+    void dfs(vector<vector<int>>& grid, int x, int y, int mark) {
+        int n = grid.size();
+        if (x < 0 || y < 0 || x == n || y == n) return;
+
+        if (grid[x][y] != 1) return;
+        grid[x][y] = mark;
+        size[mark - 2] ++;
+
+        dfs(grid, x - 1, y, mark);
+        dfs(grid, x, y - 1, mark);
+        dfs(grid, x + 1, y, mark);
+        dfs(grid, x, y + 1, mark);
+    }
+};
