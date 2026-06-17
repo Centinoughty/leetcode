@@ -70,3 +70,34 @@ private:
         return memo[pos] = max(pick, noPick);
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+
+        vector<int> dp(n - 1, 0);
+        for (int i = 0; i < n - 1; i ++) {
+            int pick = nums[i] + (i - 2 >= 0 ? dp[i - 2] : 0);
+            int noPick = (i - 1 >= 0 ? dp[i - 1] : 0);
+
+            dp[i] = max(pick, noPick);
+        }
+
+        int round1 = dp[n - 2];
+
+        dp.assign(n, 0);
+        for (int i = 1; i < n; i ++) {
+            int pick = nums[i] + (i - 2 >= 0 ? dp[i - 2] : 0);
+            int noPick = (i - 1 >= 0 ? dp[i - 1] : 0);
+
+            dp[i] = max(pick, noPick);
+        }
+
+        int round2 = dp[n - 1];
+
+        return max(round1, round2);
+    }
+};
