@@ -39,3 +39,34 @@ private:
         return dp[pos];
     }
 };
+
+// Memoisation
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+
+        memo.resize(n, -1);
+        int round1 = robHelper(nums, n, 1);
+
+        memo.assign(n, -1);
+        int round2 = robHelper(nums, n - 1, 0);
+
+        return max(round1, round2);
+    }
+
+private:
+    vector<int> memo;
+
+    int robHelper(vector<int>& nums, int n, int pos) {
+        if (pos >= n) return 0;
+
+        if (memo[pos] != -1) return memo[pos];
+
+        int pick = nums[pos] + robHelper(nums, n, pos + 2);
+        int noPick = robHelper(nums, n, pos + 1);
+
+        return memo[pos] = max(pick, noPick);
+    }
+};
