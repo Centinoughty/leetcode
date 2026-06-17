@@ -23,3 +23,19 @@ private:
         return dp[pos];
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        vector<int> dp(nums.size(), 0);
+
+        for (int i = 0; i < nums.size(); i ++) {
+            int pick = nums[i] + (i - 2 >= 0 ? dp[i - 2] : 0);
+            int noPick = (i - 1 >= 0 ? dp[i - 1] : 0);
+            dp[i] = max(pick, noPick);
+        }
+
+        return dp[nums.size() - 1];
+    }
+};
