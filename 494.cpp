@@ -29,3 +29,28 @@ private:
         return dp[target + 2000][pos];
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n = nums.size();
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (abs(target) > sum) return 0;
+
+        vector<vector<int>> dp(n + 1, vector<int>(2 * sum + 1, 0));
+
+        dp[n][sum] = 1;
+        for (int i = n - 1; i >= 0; i --) {
+            for (int j = -sum; j <= sum; j ++) {
+                int count = 0;
+                if (j - nums[i] >= -sum) count += dp[i + 1][j - nums[i] + sum];
+                if (j + nums[i] <= sum) count += dp[i + 1][j + nums[i] + sum];
+
+                dp[i][j + sum] = count;
+            }
+        }
+
+        return dp[0][target + sum];
+    }
+};
