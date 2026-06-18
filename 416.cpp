@@ -67,3 +67,27 @@ private:
         return memo[pos][k] = pick || noPick;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int totalSum = accumulate(nums.begin(), nums.end(), 0);
+        if (totalSum % 2) return false;
+
+        int n = nums.size(), k = totalSum / 2;
+        vector<vector<bool>> dp(n + 1, vector<bool>(k + 1, false));
+        dp[n][0] = true;
+
+        for (int i = n - 1; i >= 0; i --) {
+            for (int j = 0; j <= k; j ++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - nums[i] >= 0) {
+                    dp[i][j] = dp[i][j] || dp[i + 1][j - nums[i]];
+                }
+            }
+        }
+
+        return dp[0][k];
+    }
+};
