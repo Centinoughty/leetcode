@@ -39,3 +39,40 @@ private:
         return memo[l][r] = res;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int minCost(int n, vector<int>& cuts) {
+        sort(cuts.begin(), cuts.end());
+
+        vector<int> newCuts;
+        newCuts.push_back(0);
+        for (const int& cut : cuts) {
+            newCuts.push_back(cut);
+        }
+
+        newCuts.push_back(n);
+
+        int m = newCuts.size();
+        vector<vector<int>> dp(m + 1, vector<int>(m + 1, 0));
+        for (int len = 2; len < m; len ++) {
+            for (int i = 0; i + len < m; i ++) {
+                int j = i + len;
+                int res = INT_MAX;
+                for (int mid = i + 1; mid < j; mid ++) {
+                    int cost = dp[i][mid] + dp[mid][j] + newCuts[j] - newCuts[i];
+                    res = min(res, cost);
+                }
+
+                if (res == INT_MAX) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = res;
+                }
+            }
+        }
+
+        return dp[0][m - 1];
+    }
+};
