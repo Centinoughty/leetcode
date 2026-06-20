@@ -31,3 +31,29 @@ private:
         return memo[i][j] = res;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        int l1 = s.length(), l2 = t.length();
+        vector<vector<int>> dp(l1 + 1, vector<int>(l2 + 1, 0));
+        for (int i = 0; i <= l1; i ++) {
+            dp[i][l2] = 1;
+        }
+
+        for (int i = l1 - 1; i >= 0; i --) {
+            for (int j = l2 - 1; j >= 0; j --) {
+                long long res = 0;
+                if (s[i] == t[j]) {
+                    res += dp[i + 1][j + 1];
+                }
+
+                res += dp[i + 1][j];
+                dp[i][j] = res;
+            }
+        }
+
+        return dp[0][0];
+    }
+};
