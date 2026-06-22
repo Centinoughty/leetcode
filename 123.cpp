@@ -20,3 +20,32 @@ public:
         return dp[0][1][2];
     }
 };
+
+// Memoisation
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        memo.resize(n, vector<vector<int>>(2, vector<int>(3, -1)));
+
+        return profitHelper(prices, 0, 1, 2);
+    }
+
+private:
+    vector<vector<vector<int>>> memo;
+
+    int profitHelper(vector<int>& prices, int pos, int buy, int cnt) {
+        if (cnt < 0 || pos == prices.size()) return 0;
+
+        if (memo[pos][buy][cnt] != -1) return memo[pos][buy][cnt];
+
+        int profit = 0;
+        if (buy) {
+            profit = max(-prices[pos] + profitHelper(prices, pos + 1, 0, cnt - 1), profitHelper(prices, pos + 1, 1, cnt));
+        } else {
+            profit = max(prices[pos] + profitHelper(prices, pos, 1, cnt), profitHelper(prices, pos + 1, 0, cnt));
+        }
+
+        return memo[pos][buy][cnt] = profit;
+    }
+};
