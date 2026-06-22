@@ -24,24 +24,4 @@ public:
 
         return dp[0];
     }
-
-private:
-    vector<int> memo;
-
-    int profitHelper(vector<int>& prices, int pos) {
-        if (pos == prices.size()) return 0;
-
-        if (memo[pos] != -1) return memo[pos];
-
-        int buy = pos, maxProfit = 0;
-        for (int i = pos + 1; i < prices.size(); i ++) {
-            if (prices[i] < prices[buy]) {
-                buy = i;
-            } else {
-                maxProfit = max(maxProfit, prices[i] - prices[buy] + profitHelper(prices, i));
-            }
-        }
-
-        return memo[pos] = maxProfit;
-    }
 };
