@@ -70,3 +70,37 @@ public:
         return *max_element(dp.begin(), dp.end());
     }
 };
+
+// Binary Search
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> res;
+        for (int i = 0; i < nums.size(); i ++) {
+            int pos = lowerBound(res, nums[i]);
+            if (pos == res.size()) {
+                res.push_back(nums[i]);
+            } else {
+                res[pos] = nums[i];
+            }
+        }
+
+        return res.size();
+    }
+
+private:
+    int lowerBound(vector<int>& nums, int target) {
+        int l = 0, r = nums.size();
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] < target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+
+        return r;
+    }
+};
+
