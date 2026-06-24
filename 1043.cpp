@@ -29,3 +29,23 @@ private:
         return memo[l] = val;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        int n = arr.size();
+        vector<int> dp(n + 1, 0);
+        for (int i = n - 1; i >= 0; i --) {
+            int val = 0, maxVal = arr[i];
+            for (int j = i; j < min(n, i + k); j ++) {
+                maxVal = max(maxVal, arr[j]);
+                val = max(val, (j - i + 1) * maxVal + dp[j + 1]);
+            }
+
+            dp[i] = val;
+        }
+
+        return dp[0];
+    }
+};
