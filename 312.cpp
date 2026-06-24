@@ -38,3 +38,32 @@ private:
         return memo[l][r] = res;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int maxCoins(vector<int>& nums) {
+        vector<int> temp;
+        temp.push_back(1);
+        for (const int& num : nums) {
+            temp.push_back(num);
+        }
+
+        temp.push_back(1);
+        int n = nums.size();
+        vector<vector<int>> dp(n + 2, vector<int>(n + 2, 0));
+        for (int i = n; i > 0; i --) {
+            for (int j = i; j <= n; j ++) {
+                int res = INT_MIN;
+                for (int k = i; k <= j; k ++) {
+                    int cost = temp[i - 1] * temp[k] * temp[j + 1];
+                    res = max(res, cost + dp[i][k - 1] + dp[k + 1][j]);
+                }
+
+                dp[i][j] = res;
+            }
+        }
+
+        return dp[1][n];
+    }
+};
