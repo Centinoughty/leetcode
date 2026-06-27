@@ -58,3 +58,36 @@ public:
         return maxArea;
     }
 };
+
+// Single Pass
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        vector<int> pse(n), nse(n);
+        stack<int> st;
+        for (int i = 0; i < heights.size(); i ++) {
+            while (!st.empty() && heights[st.top()] > heights[i]) {
+                int top = st.top();
+                nse[top] = i;
+                st.pop();
+            }
+
+            int top = st.empty() ? -1 : st.top();
+            pse[i] = top;
+            st.push(i);
+        }
+
+        while (!st.empty()) {
+            int top = st.top(); st.pop();
+            nse[top] = n;
+        }
+
+        int maxArea = 0;
+        for (int i = 0; i < heights.size(); i ++) {
+            maxArea = max(maxArea, heights[i] * (nse[i] - pse[i] - 1));
+        }
+
+        return maxArea;
+    }
+};
