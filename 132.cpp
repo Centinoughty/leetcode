@@ -38,3 +38,37 @@ private:
         return true;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        vector<int> dp(n + 1, 0);
+        for (int i = n - 1; i >= 0; i --) {
+            if (isPalindrome(s, i, n - 1)) {
+                dp[i] = 0;
+            } else {
+                int res = n - 1;
+                for (int k = i; k < n; k ++) {
+                    if (isPalindrome(s, i, k)) {
+                        res = min(res, 1 + dp[k + 1]);
+                    }
+
+                    dp[i] = res;
+                }
+            }
+        }
+
+        return dp[0];
+    }
+
+private:
+    bool isPalindrome(string& s, int i, int j) {
+        while (i < j) {
+            if (s[i ++] != s[j --]) return false;
+        }
+
+        return true;
+    }
+};
