@@ -31,3 +31,26 @@ private:
         }
     }
 };
+
+// Iterative
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if (!root) return res;
+
+        stack<TreeNode*> st;
+        st.push(root);
+
+        while (!st.empty()) {
+            TreeNode* top = st.top(); st.pop();
+            res.push_back(top->val);
+
+            if (top->left) st.push(top->left);
+            if (top->right) st.push(top->right);
+        }
+
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
