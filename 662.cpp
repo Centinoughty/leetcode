@@ -45,3 +45,35 @@ public:
         return maxWidth;
     }
 };
+
+// No overflow - Optimal
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if (!root) return 0;
+
+        int maxWidth = 1;        
+        queue<pair<TreeNode*, long long>> q;
+        q.push({root, 0});
+
+        while (!q.empty()) {
+            int size = q.size();
+
+            int l = -1, r = -1;
+            while (size --) {
+                auto [node, idx] = q.front(); q.pop();
+                if (l == -1) l = idx;
+                r = idx;
+
+                idx -= l;
+
+                if (node->left) q.push({node->left, 2 * idx + 1});
+                if (node->right) q.push({node->right, 2 * idx + 2});
+            }
+
+            maxWidth = max(maxWidth, r - l + 1);
+        }
+
+        return maxWidth;
+    }
+};
