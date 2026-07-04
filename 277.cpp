@@ -95,3 +95,28 @@ class Solution {
         return i;
     }
 };
+
+// Graph theory
+class Solution {
+public:
+    int celebrity(vector<vector<int>>& mat) {
+        int m = mat.size();
+        vector<int> cnt(m, 0), celeb(m, 0);
+        
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0; j < m; j ++) {
+                if (i == j) continue;
+                cnt[j] += mat[i][j];
+                celeb[i] += mat[i][j];
+            }
+        }
+        
+        for (int i = 0; i < m; i ++) {
+            if (celeb[i] == 0 && cnt[i] == m - 1) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+};
