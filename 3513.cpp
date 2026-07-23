@@ -22,3 +22,17 @@ public:
     return 1 << (high + 1);
   }
 };
+
+// Optimal
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        
+        int msb = 32 - __builtin_clz(n);
+
+        return 1 << msb;
+    }
+};
