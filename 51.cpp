@@ -62,3 +62,59 @@ private:
         return true;
     }
 };
+
+// Final
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string> board(n, string(n, '.'));
+        col.resize(n, false);
+
+        diagL.resize(2 * n - 1, false);
+        diagR.resize(2 * n - 1, false);
+
+        solve(board, 0);
+        return res;
+    }
+
+private:
+    vector<vector<string>> res;
+    vector<bool> col, diagL, diagR;
+
+    void solve(vector<string>& board, int i) {
+        int n = board.size();
+        if (i == n) {
+            res.push_back(board);
+            return;
+        }
+
+        for (int c = 0; c < n; c ++) {
+            if (isSafe(board, i, c)) {
+                board[i][c] = 'Q';
+                col[c] = diagL[i + c] = diagR[i + n - c - 1] = true;
+
+                solve(board, i + 1);
+
+                board[i][c] = '.';
+                col[c] = diagL[i + c] = diagR[i + n - c - 1] = false;
+            }
+        }
+
+        return;
+    }
+
+    bool isSafe(vector<string>& board, int i, int j) {
+        int n = board.size();
+
+        if (col[j] || diagL[i + j] || diagR[i + n - j - 1]) return false;
+
+        for (int x = max(0, i - 1); x <= min(n - 1, i + 1); x ++) {
+            for (int y = max(0, j - 1); y <= min(n - 1, j + 1); y ++) {
+                if (x == i && y == j) continue;
+                if (board[x][y] == 'Q') return false;
+            }
+        }
+
+        return true;
+    }
+};
