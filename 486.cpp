@@ -21,3 +21,24 @@ public:
     return array[numsSize - 1] >= 0;
   }
 };
+
+// Memoisation
+class Solution {
+public:
+    bool predictTheWinner(vector<int>& nums) {
+        int n = nums.size();
+        memo.resize(n, vector<int>(n, -1));
+        return helper(nums, 0, nums.size() - 1) >= 0;
+    }
+
+private:
+    vector<vector<int>> memo;
+
+    int helper(vector<int>& nums, int l, int r) {
+        if (l == r) return nums[l];
+
+        if (memo[l][r] != -1) return memo[l][r];
+
+        return memo[l][r] = max(nums[l] - helper(nums, l + 1, r), nums[r] - helper(nums, l, r - 1));
+    }
+};
