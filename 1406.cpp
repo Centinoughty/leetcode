@@ -36,3 +36,31 @@ private:
         return memo[pos] = max(a, max(b, c));
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    string stoneGameIII(vector<int>& stoneValue) {
+        int n = stoneValue.size();
+        vector<int> dp(n + 3, 0);
+
+        for (int i = n - 1; i >= 0; i --) {
+            int best = INT_MIN, sum = 0;
+
+            for (int j = 0; j < 3 && i + j < n; j ++) {
+                sum += stoneValue[i + j];
+                best = max(best, sum - dp[i + j + 1]);
+            }
+
+            dp[i] = best;
+        }
+
+        if (dp[0] > 0) {
+            return "Alice";
+        } else if (dp[0] < 0) {
+            return "Bob";
+        } else {
+            return "Tie";
+        }
+    }
+};
