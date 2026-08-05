@@ -38,3 +38,36 @@ private:
         return memo[pos] = res;
     }
 };
+
+// Tabulation
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.length();
+        vector<bool> dp(n + 1, false);
+        dp[n] = true;
+
+        for (int i = n - 1; i >= 0; i --) {
+            bool res = false;
+            for (const string& word : wordDict) {
+                int l = i, j = 0;
+                int m = word.length();
+                while (l < n && j < m) {
+                    if (s[l] == word[j]) {
+                        l ++; j ++;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (j == m) {
+                    res |= dp[i + m];
+                }
+            }
+
+            dp[i] = res;
+        }
+
+        return dp[0];
+    }
+};
